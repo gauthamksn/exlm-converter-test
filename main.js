@@ -84,8 +84,12 @@ let main = renderDoc(id)
 main.then((main) => {
     const app = express();
 
-    app.get("/test-tabs", (request, response) => {
-        response.send(main);
+    app.get("/", (req, res) => {
+        res.send("EXLM CONVERTER")
+    })
+
+    app.get("/test-tabs", (req, res) => {
+        res.send(main);
     });
 
     app.listen(5000, () => {
