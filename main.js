@@ -67,11 +67,15 @@ const renderDoc = async function renderDocs(id) {
         });
 
         let nhtml = html.replaceAll("&#x3C;", "<")
+        nhtml = nhtml.replaceAll(`<tr style="border: 0;">`, "</table>")
 
         const dom = new JSDOM(nhtml)
+        // let codeTags = dom.window.document.querySelectorAll("code")
+
         createTabBlock(dom)
 
         return dom.window.document.querySelector("body").outerHTML;
+        // return nhtml
     } else {
         return { error: new Error(`No ID found for path: ${path}, see the url-mapping file for a list of available paths`) };
     }
