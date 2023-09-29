@@ -22,7 +22,7 @@ import fixSections from '@adobe/helix-html-pipeline/src/steps/fix-sections.js';
 
 
 import ExlClient from "./ExlClient.js"
-import { createTabBlock } from "./blockGenerators.js";
+import { createTabBlock, createNotesBlock } from "./blockGenerators.js";
 
 const id = "recXZZxBo4pkOnx9k"
 
@@ -70,9 +70,9 @@ const renderDoc = async function renderDocs(id) {
         nhtml = nhtml.replaceAll(`<tr style="border: 0;">`, "</table>")
 
         const dom = new JSDOM(nhtml)
-        // let codeTags = dom.window.document.querySelectorAll("code")
 
         createTabBlock(dom)
+        createNotesBlock(dom)
 
         return dom.window.document.querySelector("body").outerHTML;
         // return nhtml
@@ -92,12 +92,12 @@ main.then((main) => {
         res.send("EXLM CONVERTER")
     })
 
-    app.get("/test-tabs", (req, res) => {
+    app.get("/test-notes", (req, res) => {
         res.send(main);
     });
 
     app.listen(5000, () => {
-        console.log("Listening on the port 5000 : http://localhost:5000/test-tabs");
+        console.log("Listening on the port 5000 : http://localhost:5000/test-notes");
     });
 })
 

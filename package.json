@@ -11,11 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@adobe/aio-cli": "^9.3.0",
     "@adobe/helix-html-pipeline": "4.1.4",
     "@adobe/helix-importer": "2.9.22",
     "@adobe/mdast-util-gridtables": "2.0.2",
     "@adobe/remark-gridtables": "1.0.4",
     "adobe-afm-transform": "^1.2.24",
+    "aio-cli": "^1.0.0",
     "hast-util-from-html": "^2.0.1",
     "hast-util-raw": "8.0.0",
     "hast-util-select": "5.0.5",

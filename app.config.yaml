@@ -1,0 +1,15 @@
+application:
+  runtimeManifest:
+    packages:
+      main:
+        license: Apache-2.0
+        actions:
+          convert:
+            function: main.js
+            web: 'yes'
+            runtime: 'nodejs:18'
+            inputs:
+              LOG_LEVEL: debug
+            annotations:
+              require-adobe-auth: false # explicitly unauthenticated action
+              final: true
