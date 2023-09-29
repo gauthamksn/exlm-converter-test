@@ -19,12 +19,13 @@ import createPageBlocks from '@adobe/helix-html-pipeline/src/steps/create-page-b
 import { h } from 'hastscript';
 import fixSections from '@adobe/helix-html-pipeline/src/steps/fix-sections.js';
 
+import Logger from '@adobe/aio-lib-core-logging';
+let aioLogger = Logger("App");
+
 
 
 import ExlClient from "./ExlClient.js"
 import { createTabBlock, createNotesBlock } from "./blockGenerators.js";
-
-const id = "recXZZxBo4pkOnx9k"
 
 const exlClient = new ExlClient()
 
@@ -74,30 +75,28 @@ const renderDoc = async function renderDocs(id) {
         createTabBlock(dom)
         createNotesBlock(dom)
 
-        return dom.window.document.querySelector("body").outerHTML;
         // return nhtml
+        return dom.window.document.querySelector("body").outerHTML;
     } else {
         return { error: new Error(`No ID found for path: ${path}, see the url-mapping file for a list of available paths`) };
     }
 }
 
-let main = renderDoc(id)
-
-
-
-main.then((main) => {
-    const app = express();
-
-    app.get("/", (req, res) => {
-        res.send("EXLM CONVERTER")
+export const main = async function main(params) {
+    aioLogger.info({ params });
+    let path = params.__ow_path ? params.__ow_path : "/recXZZxBo4pkOnx9k";
+    path = path.slice(1)
+    const response = renderDoc(path).then((html) => {
+        return {
+            statusCode: 200,
+            headers: {
+                "x-html2md-img-src": "https://experienceleague.adobe.com",
+            },
+            body: html,
+        };
+    }).catch((error) => {
+        return { statusCode: 404, body: `Path invalid: ${error}` }
     })
 
-    app.get("/test-notes", (req, res) => {
-        res.send(main);
-    });
-
-    app.listen(5000, () => {
-        console.log("Listening on the port 5000 : http://localhost:5000/test-notes");
-    });
-})
-
+    return response
+}

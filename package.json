@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "npm-run-all build --parallel serve:*",
-    "serve:build": "webpack ./main.js --watch",
+    "serve:build": "webpack ./src/index.js --watch",
     "serve:server": "nodemon --inspect ./dist/main.cjs --watch ./dist",
     "build": "rimraf dist/ && webpack --mode production",
     "build:dev": "rimraf dist/ && webpack",
