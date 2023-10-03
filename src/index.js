@@ -84,8 +84,9 @@ const renderDoc = async function renderDocs(id) {
 
 export const main = async function main(params) {
     aioLogger.info({ params });
-    let path = params.__ow_path ? params.__ow_path : "/recXZZxBo4pkOnx9k";
-    path = path.slice(1)
+    // let path = params.__ow_path ? params.__ow_path : "/recXZZxBo4pkOnx9k";
+    // path = path.slice(1)
+    let path = "recXZZxBo4pkOnx9k"
     const response = renderDoc(path).then((html) => {
         return {
             statusCode: 200,
